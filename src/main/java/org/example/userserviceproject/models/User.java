@@ -1,9 +1,6 @@
 package org.example.userserviceproject.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +14,7 @@ public class User extends BaseModel{
     private String userName;
     private String email;
     private String hashPassword;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
     private boolean isVerified;// Email verification
 }

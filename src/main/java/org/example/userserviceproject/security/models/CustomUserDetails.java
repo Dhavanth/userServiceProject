@@ -13,7 +13,7 @@ import java.util.List;
 @JsonDeserialize
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    //private User user;
     private List<CustomGrantedAuthority> authorities;
     private String password;
     private String username;
@@ -21,6 +21,7 @@ public class CustomUserDetails implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private Long userId;
 
 
     public CustomUserDetails(){
@@ -29,11 +30,14 @@ public class CustomUserDetails implements UserDetails {
 
 
     public CustomUserDetails(User user){
-        this.user = user;
+        //this.user = user;
         this.accountNonExpired = true;
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
         this.enabled = true;
+        this.password = user.getHashPassword();
+        this.username = user.getEmail();
+        this.userId = user.getId();
 
         List<CustomGrantedAuthority> grantedAuthorities = new ArrayList<>();
 

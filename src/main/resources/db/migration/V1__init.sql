@@ -1,7 +1,7 @@
 CREATE TABLE authorization
 (
     id                            VARCHAR(255) NOT NULL,
-    registered_client_id          text NULL,
+    registered_client_id          VARCHAR(255) NULL,
     principal_name                VARCHAR(255) NULL,
     authorization_grant_type      VARCHAR(255) NULL,
     authorized_scopes             text NULL,
@@ -10,12 +10,12 @@ CREATE TABLE authorization
     authorization_code_value      text NULL,
     authorization_code_issued_at  datetime NULL,
     authorization_code_expires_at datetime NULL,
-    authorization_code_metadata   text NULL,
+    authorization_code_metadata   VARCHAR(255) NULL,
     access_token_value            text NULL,
     access_token_issued_at        datetime NULL,
     access_token_expires_at       datetime NULL,
     access_token_metadata         text NULL,
-    access_token_type             text NULL,
+    access_token_type             VARCHAR(255) NULL,
     access_token_scopes           text NULL,
     refresh_token_value           text NULL,
     refresh_token_issued_at       datetime NULL,
