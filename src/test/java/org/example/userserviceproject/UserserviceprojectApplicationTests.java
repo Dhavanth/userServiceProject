@@ -1,6 +1,6 @@
 package org.example.userserviceproject;
 
-//import org.example.userserviceproject.security.repositories.JpaRegisteredClientRepository;
+import org.example.userserviceproject.security.repositories.JpaRegisteredClientRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +16,8 @@ import java.util.UUID;
 @SpringBootTest
 class UserserviceprojectApplicationTests {
 
-    //@Autowired
-    //private JpaRegisteredClientRepository registeredClientRepository;
+    @Autowired
+    private JpaRegisteredClientRepository registeredClientRepository;
 
     @Test
     void contextLoads() {
