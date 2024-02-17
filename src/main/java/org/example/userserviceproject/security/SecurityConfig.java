@@ -71,8 +71,16 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests((authorize) -> {
+                            try {
+                                authorize
+                                        .anyRequest().permitAll()
+                                        .and().csrf().disable()
+                                        .cors().disable();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 )
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
@@ -81,16 +89,16 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.builder()
-                .username("user")
-                .password("$2a$12$sMEDcy1VzWzdGlvVxSDPp.iI6tkGYFhzYVpUHFdYCfCygJJDoZR0m")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails userDetails = User.builder()
+//                .username("user")
+//                .password("$2a$12$sMEDcy1VzWzdGlvVxSDPp.iI6tkGYFhzYVpUHFdYCfCygJJDoZR0m")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(userDetails);
+//    }
 
 //    @Bean
 //    public RegisteredClientRepository registeredClientRepository() {

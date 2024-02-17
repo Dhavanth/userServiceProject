@@ -1,11 +1,15 @@
 package org.example.userserviceproject.dtos;
 
 import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.userserviceproject.models.Role;
 import org.example.userserviceproject.models.User;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class UserDto {
     private String name;
     private String email;
