@@ -1,11 +1,15 @@
 package org.example.userserviceproject.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.example.userserviceproject.dtos.SendEmailEventDto;
 import org.example.userserviceproject.models.Token;
 import org.example.userserviceproject.models.User;
 import org.example.userserviceproject.repositories.TokenRepository;
 import org.example.userserviceproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +28,44 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private TokenRepository tokenRepository;
 
+    private KafkaTemplate<String, String> kafkaTemplate;
+    private ObjectMapper objectMapper;
+
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                       TokenRepository tokenRepository) {
+                       TokenRepository tokenRepository,
+                       KafkaTemplate<String, String> kafkaTemplate,
+                       ObjectMapper objectMapper) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenRepository= tokenRepository;
+        this.kafkaTemplate = kafkaTemplate;
+        this.objectMapper = objectMapper;
     }
     public User signUp(String name, String email, String password) {
         User newUser = new User();
         newUser.setUserName(name);
         newUser.setEmail(email);
         newUser.setHashPassword(bCryptPasswordEncoder.encode(password));
+
+        SendEmailEventDto sendEmailEventDto = new SendEmailEventDto();
+        sendEmailEventDto.setTo(email);
+        sendEmailEventDto.setSubject("Welcome to DECommerceApp");
+        sendEmailEventDto.setBody("Thanks! for signing up at our platform." +
+                "We are looking forward to  serve you our best.");
+        sendEmailEventDto.setFrom(email);
+
+        //Json representation of above dto
+
+
+        try {
+            kafkaTemplate.send(
+                    "sendEmail",
+                    objectMapper.writeValueAsString(sendEmailEventDto)
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         return userRepository.save(newUser);
     }

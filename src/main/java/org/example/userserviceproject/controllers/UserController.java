@@ -20,9 +20,12 @@ public class UserController {
 
     private UserService userService;
 
+
     // In controller @Autowired is optional
     public UserController(UserService userService) {
+
         this.userService = userService;
+
     }
 
     @PostMapping("/login")
