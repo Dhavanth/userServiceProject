@@ -62,6 +62,7 @@ public class UserService {
             kafkaTemplate.send(
                     "sendEmail",
                     objectMapper.writeValueAsString(sendEmailEventDto)
+
             );
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
