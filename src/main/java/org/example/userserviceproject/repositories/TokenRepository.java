@@ -15,4 +15,5 @@ public interface TokenRepository extends JpaRepository<Token, Long>{
     Optional<Token> findByValueAndDeletedStatusAndExpirationDateGreaterThan(String token,
                                                                             boolean deletedStatus,
                                                                             Date expirationDate);
+    //Expiry date should be Greater than current date
 }

@@ -29,7 +29,7 @@ class UserserviceprojectApplicationTests {
 //    @Test
 //    @Commit
 //    void storeRegisteredClientIntoDB() {
-//                RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
 //                .clientId("oidc-client")
 //                .clientSecret("{noop}secret")
 //                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -45,10 +45,8 @@ class UserserviceprojectApplicationTests {
 //                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 //                .build();
 //
-//                registeredClientRepository.save(oidcClient);
+//        registeredClientRepository.save(oidcClient);
 //
 //    }
-//
-//
-//
+
 }
